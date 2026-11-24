@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#fff9f0">
+  <title>Campus Cravings | College Canteen</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="navbar page-shell" aria-label="Main navigation">
+      <a class="brand" href="/" aria-label="Campus Cravings home">
+        <span class="brand-mark" aria-hidden="true">C<span>.</span></span>
+        <span class="brand-name">campus<span>cravings</span></span>
+      </a>
+      <div class="nav-links" id="nav-links">
+        <a class="nav-link active" href="#menu">Menu</a>
+        <button class="nav-link" id="orders-link" data-role="STUDENT" type="button" hidden>My orders</button>
+        <button class="nav-link" id="staff-orders-link" data-role="STAFF" type="button" hidden>Order desk</button>
+        <button class="nav-link" id="admin-toggle" data-role="ADMIN" type="button" hidden>Admin desk</button>
+      </div>
+      <div class="account-actions">
+        <span class="account-name" id="account-name" hidden></span>
+        <button class="sign-out-button" id="sign-out" type="button" hidden>Sign out</button>
+      </div>
+      <button class="cart-button" id="cart-toggle" data-role="STUDENT" type="button" aria-label="Open shopping cart" hidden>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h2l2.2 10.1a2 2 0 0 0 2 1.6h8.5a2 2 0 0 0 1.9-1.4L21 8H6M10 20a1 1 0 1 0 0-2 1 1 0 0 0 0 2Zm8 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"/></svg>
+        <span>Cart</span><span class="cart-count" id="cart-count">0</span>
+      </button>
+      <button class="mobile-menu-button" id="mobile-menu-toggle" type="button" aria-label="Toggle navigation">☰</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero page-shell" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="eyebrow-dot"></span> YOUR CAMPUS, YOUR CANTEEN</div>
+        <h1 id="hero-title">Good food.<br><span>Great campus</span> days.</h1>
+        <p>Freshly made favourites, ready when you are. Skip the queue and make your break delicious.</p>
+        <a class="primary-button hero-button" href="#menu">Explore the menu <span aria-hidden="true">↗</span></a>
+        <div class="hero-note"><span class="note-avatars" aria-hidden="true"><i>☺</i><i>✦</i><i>●</i></span><span>Loved by hungry students, every day.</span></div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-image-wrap">
+          <img src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=1200&q=90" alt="A colourful freshly prepared meal">
+        </div>
+        <div class="floating-note"><span class="floating-icon">✦</span><span><strong>Made fresh</strong><small>Just for your break</small></span></div>
+        <span class="hero-sparkle sparkle-one" aria-hidden="true">✳</span>
+        <span class="hero-sparkle sparkle-two" aria-hidden="true">✦</span>
+      </div>
+      <div class="hero-bottom-line"><span>FRESHLY PREPARED</span><i></i><span>MADE WITH CARE</span><i></i><span>RIGHT ON CAMPUS</span></div>
+    </section>
+
+    <section class="menu-section page-shell" id="menu">
+      <div class="section-heading">
+        <div><div class="eyebrow">A LITTLE SOMETHING FOR EVERYONE</div><h2>Find your <span>favourite.</span></h2></div>
+        <p>Good food makes a good day even better.</p>
+      </div>
+      <div class="menu-tools">
+        <div class="category-list" id="category-list" aria-label="Filter by category">
+          <button class="category-chip active" type="button" data-category="All">All items</button>
+          <button class="category-chip" type="button" data-category="Breakfast">Breakfast</button>
+          <button class="category-chip" type="button" data-category="Lunch">Lunch</button>
+          <button class="category-chip" type="button" data-category="Snacks">Snacks</button>
+          <button class="category-chip" type="button" data-category="Drinks">Drinks</button>
+        </div>
+        <label class="search-box">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 4 4"/></svg>
+          <input id="menu-search" type="search" placeholder="Search something tasty..." aria-label="Search menu">
+          <kbd>⌘ K</kbd>
+        </label>
+      </div>
+      <div class="menu-status" id="menu-status" role="status" hidden></div>
+      <div class="food-grid" id="food-grid" aria-live="polite"></div>
+      <div class="empty-state" id="menu-empty" hidden><span>🍽️</span><h3>No bites found</h3><p>Try another search or category.</p></div>
+    </section>
+
+    <section class="orders-section page-shell" id="orders-section">
+      <div class="section-heading compact-heading">
+        <div><div class="eyebrow">YOUR TASTY TIMELINE</div><h2>Order <span>history.</span></h2></div>
+        <p>All your canteen moments, in one place.</p>
+      </div>
+      <div class="orders-list" id="orders-list"></div>
+      <div class="empty-orders" id="orders-empty"><span>🥡</span><p>Your past orders will show up here.</p></div>
+    </section>
+
+    <section class="admin-section page-shell" id="admin-section" hidden>
+      <div class="section-heading compact-heading admin-heading">
+        <div><div class="eyebrow">CANTEEN CONTROL</div><h2>Admin <span>desk.</span></h2></div>
+        <button class="text-button" id="admin-close" type="button">Close admin <span>×</span></button>
+      </div>
+      <div class="admin-grid">
+        <div class="admin-card" id="item-admin-card">
+          <div class="admin-card-heading"><div><div class="eyebrow">MENU MANAGEMENT</div><h3 id="item-form-title">Add a menu item</h3></div><span class="admin-icon">✦</span></div>
+          <form id="item-form" class="item-form">
+            <input id="item-id" type="hidden">
+            <label>Item name<input id="item-name" name="name" required maxlength="60" placeholder="e.g. Veggie burger"></label>
+            <div class="form-row">
+              <label>Category<select id="item-category" name="category" required><option>Breakfast</option><option>Lunch</option><option>Snacks</option><option>Drinks</option></select></label>
+              <label>Price (₹)<input id="item-price" name="price" type="number" min="0" step="0.01" required placeholder="60"></label>
+            </div>
+            <label>Description<input id="item-description" name="description" required maxlength="140" placeholder="A short tasty description"></label>
+            <label>Image URL<input id="item-image" name="image" type="url" required placeholder="https://..."></label>
+            <div class="form-actions"><button class="primary-button" id="item-submit" type="submit">Add item <span>＋</span></button><button class="text-button" id="item-cancel" type="button" hidden>Cancel edit</button></div>
+          </form>
+          <div class="admin-items" id="admin-items"></div>
+        </div>
+        <div class="admin-card">
+          <div class="admin-card-heading"><div><div class="eyebrow">ORDER QUEUE</div><h3>Recent orders</h3></div><span class="admin-icon">↗</span></div>
+          <div class="admin-orders" id="admin-orders"></div>
+        </div>
+      </div>
+      <p class="admin-disclaimer">Starter credentials are for local testing only. Do not reuse them outside this demo.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="page-shell footer-inner"><a class="brand footer-brand" href="/"><span class="brand-mark">C<span>.</span></span><span class="brand-name">campus<span>cravings</span></span></a><p>Made for campus life. Served with a little extra love.</p><span>© Campus Cravings</span></div>
+  </footer>
+
+  <div class="drawer-backdrop" id="drawer-backdrop"></div>
+  <aside class="cart-drawer" id="cart-drawer" aria-label="Your cart" aria-hidden="true">
+    <div class="drawer-heading"><div><div class="eyebrow">YOUR NEXT DELICIOUS BREAK</div><h2>Your cart <span id="drawer-count">(0)</span></h2></div><button class="icon-button" id="cart-close" type="button" aria-label="Close cart">×</button></div>
+    <div class="cart-items" id="cart-items"></div>
+    <div class="cart-empty" id="cart-empty"><span>🛍️</span><h3>Your cart is taking a break.</h3><p>Add something delicious from the menu.</p></div>
+    <form class="checkout" id="checkout-form">
+      <div class="checkout-identity" id="checkout-identity"></div>
+      <div class="bill-row"><span>Subtotal</span><strong id="cart-subtotal">₹0.00</strong></div>
+      <div class="bill-row total-row"><span>Total</span><strong id="cart-total">₹0.00</strong></div>
+      <button class="primary-button checkout-button" id="place-order" type="submit">Place your order <span>→</span></button>
+      <p class="checkout-note">Freshly prepared on campus, just for you.</p>
+    </form>
+  </aside>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <div class="auth-gate" id="auth-gate">
+    <section class="auth-card" aria-labelledby="auth-title">
+      <a class="brand auth-brand" href="/" aria-label="Campus Cravings">
+        <span class="brand-mark">C<span>.</span></span>
+        <span class="brand-name">campus<span>cravings</span></span>
+      </a>
+      <div class="eyebrow auth-eyebrow">WELCOME TO YOUR CAMPUS CANTEEN</div>
+      <h1 id="auth-title">Good to have <span>you here.</span></h1>
+      <p class="auth-intro" id="auth-intro">Sign in to order your favourites or manage the canteen.</p>
+      <div class="login-tabs" id="login-tabs" role="tablist" aria-label="Choose your account type">
+        <button class="login-tab active" type="button" role="tab" aria-selected="true" data-login-role="STUDENT">Student</button>
+        <button class="login-tab" type="button" role="tab" aria-selected="false" data-login-role="STAFF">Staff</button>
+        <button class="login-tab" type="button" role="tab" aria-selected="false" data-login-role="ADMIN">Admin</button>
+      </div>
+      <form class="login-form" id="student-login-form">
+        <label for="student-email">College email address</label>
+        <input id="student-email" name="email" type="email" autocomplete="email" maxlength="120" placeholder="you@college.edu" required>
+        <label for="student-password">Password</label>
+        <input id="student-password" name="password" type="password" autocomplete="current-password" minlength="8" maxlength="100" placeholder="Enter your password" required>
+        <button class="primary-button login-submit" type="submit">Sign in as student <span>→</span></button>
+      </form>
+      <div class="student-login-links" id="student-login-links">
+        <button class="text-button" id="create-account-link" type="button">Create a password</button>
+        <button class="text-button" id="forgot-password-link" type="button">Forgot password?</button>
+      </div>
+      <form class="login-form" id="staff-login-form" hidden>
+        <label for="staff-username">Staff username</label>
+        <input id="staff-username" name="username" autocomplete="username" maxlength="50" placeholder="Enter your username" required>
+        <label for="staff-password">Password</label>
+        <input id="staff-password" name="password" type="password" autocomplete="current-password" maxlength="100" placeholder="Enter your password" required>
+        <button class="primary-button login-submit" type="submit">Sign in as staff <span>→</span></button>
+        <p class="login-hint demo-credentials">Demo login: <strong>staff</strong> / <strong>staff123</strong></p>
+      </form>
+      <form class="login-form" id="admin-login-form" hidden>
+        <label for="admin-username">Admin username</label>
+        <input id="admin-username" name="username" autocomplete="username" maxlength="50" placeholder="Enter your username" required>
+        <label for="admin-password">Password</label>
+        <input id="admin-password" name="password" type="password" autocomplete="current-password" maxlength="100" placeholder="Enter your password" required>
+        <button class="primary-button login-submit" type="submit">Sign in as admin <span>→</span></button>
+        <p class="login-hint demo-credentials">Demo login: <strong>admin</strong> / <strong>admin123</strong></p>
+      </form>
+      <form class="login-form" id="student-register-form" hidden>
+        <label for="register-email">College email address</label>
+        <input id="register-email" name="email" type="email" autocomplete="email" maxlength="120" placeholder="you@college.edu" required>
+        <label for="register-password">Create password</label>
+        <input id="register-password" name="password" type="password" autocomplete="new-password" minlength="8" maxlength="100" placeholder="At least 8 characters" required>
+        <label for="register-confirm-password">Confirm password</label>
+        <input id="register-confirm-password" name="confirmPassword" type="password" autocomplete="new-password" minlength="8" maxlength="100" placeholder="Enter the password again" required>
+        <p class="login-hint">Use a college email address. Email ownership is not verified in this local demo.</p>
+        <button class="primary-button login-submit" type="submit">Create student account <span>→</span></button>
+        <button class="text-button auth-back-link" type="button" data-auth-page="login">Back to sign in</button>
+      </form>
+      <form class="login-form" id="forgot-password-form" hidden>
+        <label for="forgot-email">College email address</label>
+        <input id="forgot-email" name="email" type="email" autocomplete="email" maxlength="120" placeholder="you@college.edu" required>
+        <p class="login-hint">For this local demo, the one-time reset code appears on the next screen. It expires in 10 minutes.</p>
+        <button class="primary-button login-submit" type="submit">Get reset code <span>→</span></button>
+        <button class="text-button auth-back-link" type="button" data-auth-page="login">Back to sign in</button>
+      </form>
+      <form class="login-form" id="reset-password-form" hidden>
+        <p class="reset-code-note" id="reset-code-note" hidden></p>
+        <label for="reset-code">Reset code</label>
+        <input id="reset-code" name="code" inputmode="numeric" autocomplete="one-time-code" maxlength="6" pattern="[0-9]{6}" placeholder="6-digit code" required>
+        <label for="reset-password">New password</label>
+        <input id="reset-password" name="password" type="password" autocomplete="new-password" minlength="8" maxlength="100" placeholder="At least 8 characters" required>
+        <label for="reset-confirm-password">Confirm new password</label>
+        <input id="reset-confirm-password" name="confirmPassword" type="password" autocomplete="new-password" minlength="8" maxlength="100" placeholder="Enter the password again" required>
+        <button class="primary-button login-submit" type="submit">Save new password <span>✓</span></button>
+        <button class="text-button auth-back-link" type="button" data-auth-page="login">Back to sign in</button>
+      </form>
+      <p class="login-error" id="login-error" role="alert" hidden></p>
+      <p class="auth-footer">Campus Cravings <span>·</span> Fresh food, right on campus</p>
+    </section>
+  </div>
+  <div class="confirm-overlay" id="confirm-overlay" hidden>
+    <section class="confirm-card" role="dialog" aria-modal="true" aria-labelledby="confirm-title">
+      <button class="icon-button confirm-close" id="confirm-close" type="button" aria-label="Close confirmation">×</button>
+      <div class="confirm-check">✓</div><div class="eyebrow">ORDER SENT TO THE CANTEEN</div>
+      <h2 id="confirm-title">That's a <span>good choice!</span></h2>
+      <p>Your order is in the queue. We'll have it ready for you soon.</p>
+      <div class="order-number"><span>YOUR ORDER ID</span><strong id="confirm-order-id"></strong></div>
+      <button class="primary-button confirm-done" id="confirm-done" type="button">Lovely, thanks! <span>✓</span></button>
+    </section>
+  </div>
+
+  <script src="/app.js" defer></script>
+</body>
+</html>
